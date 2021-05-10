@@ -15,16 +15,24 @@ $connection->setTimeouts(10, 100);
 $content = $connection->get("account/verify_credentials");
 
 //search tweets containing "gros batard"
-$parameters = ["q" => '"gros batard"', "lang" => "fr", "count" => "100"];
+$parameters = ["q" => '"gros batard"', "lang" => "fr", "count" => "15"];
 
 $statuses = $connection->get("search/tweets", $parameters);
 
-print("<pre>".print_r($statuses,true)."</pre>");
+//print("<pre>".print_r($statuses,true)."</pre>");
 
 //reply to those tweets
 
 /*
-	$statues = $connection->post("statuses/update", ["status" => 'hi there @RockyStrongo', "in_reply_to_status_id" => "1200771462682095616"]);
+foreach ($statuses as $key => $value) {
+	# code...
+}*/
+
+$media = $connection->upload('media/upload', ['media' => "tarba.jpg"]);
+$mediaID =  $media->media_id_string;
+
+
+	$statues = $connection->post("statuses/update", ["status" => '@RockyStrongo Avec ceci ?', "in_reply_to_status_id" => "1200771462682095616", 'media_ids' => $mediaID]);
 
 	if ($connection->getLastHttpCode() == 200)
 	{
@@ -36,5 +44,5 @@ print("<pre>".print_r($statuses,true)."</pre>");
 		$errortwitter = $connection->getLastHttpCode();
 		echo $errortwitter;
 	}
-*/
+
 ?>
