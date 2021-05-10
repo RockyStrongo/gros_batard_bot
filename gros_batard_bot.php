@@ -19,15 +19,41 @@ $parameters = ["q" => '"gros batard"', "lang" => "fr", "count" => "15"];
 
 $statuses = $connection->get("search/tweets", $parameters);
 
-//print("<pre>".print_r($statuses,true)."</pre>");
+$tweets = $statuses->statuses;
+$search_metadata = $statuses->search_metadata;
+
+//print("<pre>".print_r($tweets,true)."</pre>");
 
 //reply to those tweets
 
-/*
-foreach ($statuses as $key => $value) {
-	# code...
-}*/
+foreach ($tweets as $key => $value) {
+	$handle = $value->user->screen_name;
+	$replytext = "@".$handle." Avec ceci ?";
+	print_r($replytext);
+	echo "<br>";
 
+$media = $connection->upload('media/upload', ['media' => "tarba.jpg"]);
+$mediaID =  $media->media_id_string;
+
+/*	
+$statues = $connection->post("statuses/update", ["status" => '@RockyStrongo Avec ceci ?', "in_reply_to_status_id" => "1200771462682095616", 'media_ids' => $mediaID]);
+
+	if ($connection->getLastHttpCode() == 200)
+	{
+		echo "<br>Tweet posted succesfully";
+	}
+	else
+	{
+		echo "error posting tweet";
+		$errortwitter = $connection->getLastHttpCode();
+		echo $errortwitter;
+	}
+*/
+
+}
+
+
+/*
 $media = $connection->upload('media/upload', ['media' => "tarba.jpg"]);
 $mediaID =  $media->media_id_string;
 
@@ -44,5 +70,5 @@ $mediaID =  $media->media_id_string;
 		$errortwitter = $connection->getLastHttpCode();
 		echo $errortwitter;
 	}
-
+*/
 ?>
