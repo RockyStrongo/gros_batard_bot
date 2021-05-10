@@ -32,10 +32,12 @@ foreach ($tweets as $key => $value) {
 	print_r($replytext);
 	echo "<br>";
 
+
+/*
 $media = $connection->upload('media/upload', ['media' => "tarba.jpg"]);
 $mediaID =  $media->media_id_string;
 
-/*	
+	
 $statues = $connection->post("statuses/update", ["status" => '@RockyStrongo Avec ceci ?', "in_reply_to_status_id" => "1200771462682095616", 'media_ids' => $mediaID]);
 
 	if ($connection->getLastHttpCode() == 200)
